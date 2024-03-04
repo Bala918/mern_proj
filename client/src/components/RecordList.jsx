@@ -63,6 +63,22 @@ export default function RecordList() {
     setRecords(newRecords);
   }
 
+  // This method fetches the records from the database.
+useEffect(() => {
+  async function getRecords() {
+    const response = await fetch(`http://localhost:5050/record/`);
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      console.error(message);
+      return;
+    }
+    const records = await response.json();
+    setRecords(records);
+  }
+  getRecords();
+  return;
+}, [records.length]);
+
   // This method will map out the records on the table
   function recordList() {
     return records.map((record) => {
